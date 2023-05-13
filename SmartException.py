@@ -1,6 +1,14 @@
 import re
 
 class SmartException:
+    """
+    Currently supports (if error appears in the file where the context manager is)  TODO: include support for errors in imported modules
+        KeyError for dict and pandas DataFrame
+        IndexError
+        AttributeError
+    
+    """
+
     def __init__(self):
         pass
     
@@ -55,10 +63,12 @@ class SmartException:
 
 # examples below:
 if __name__ == '__main__':
-    import pandas as pd 
-
+    
     with SmartException():
-        data = pd.DataFrame(index=[0, 1, 2], columns=['t', 'f', 'g'], data=[[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        data = {
+            't': [1, 2, 3],
+            'r': [5, 7, 9],
+        }
         # the following works
         print(data['t'])
         # the following fails with KeyError
